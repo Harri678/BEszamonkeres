@@ -121,4 +121,24 @@ export class AppController {
       }
   }
 
+  @Get("/stats")
+  @Render("stats")
+  getStats(){
+    let numberOfProducts = 0
+    let priceSum = 0
+    this.products.forEach(product => {
+      numberOfProducts += product.stock
+      priceSum += product.price * product.stock
+    }); 
+
+    const sortedList = [...this.products].sort((a, b) => b.price - a.price)
+
+    return{
+      numberOfProducts: numberOfProducts,
+      avgPrice: Math.round(priceSum/numberOfProducts),
+      mostExpensive: sortedList[0].price,
+      leastExpensive: sortedList[sortedList.length-1].price
+    }
+  }
+
 }
