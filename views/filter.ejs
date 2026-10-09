@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+     <a href="/">Fooldal</a>
+    <form action="/filter">
+          <label for="category">Choose a category:</label>
+
+          <select name="category" id="category" name="category">
+               <option value="elektronika">elektronika</option>
+               <option value="ruházat">ruházat</option>
+               <option value="könyv">könyv</option>
+               <option value="játék">játék</option>
+          </select>
+          <button type="submit">Submit</button>
+    </form>
+    <p>Kategoria <%= category %> </p>
+    <table>
+        <thead>
+            <tr>
+                <th>Nev</th>
+                <th>Kategoria</th>
+                <th>Ar</th>
+                <th>Raktarkeszlet</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(product => { %>
+
+                <% if(product.stock <= 0){ %> 
+                    <tr style="color: red; font-weight: bold;">
+                <% }else{ %> 
+                    <tr>
+                <% } %> 
+                    <td><%= product.name %> </td>
+                    <td><%= product.category %> </td>
+                    <td><%= product.price %> </td>
+
+                    <% if(product.stock < 5){ %> 
+                        <td style="color: red; font-weight: bold;"><%= product.stock %> </td>
+                    <% }else{ %> 
+                        <td><%= product.stock %> </td>
+                    <% } %> 
+               </tr> 
+            <%  }); %> 
+        </tbody>
+    </table>
+</body>
+</html>
